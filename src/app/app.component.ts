@@ -1,32 +1,85 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
-@Component({
+import { environment } from 'src/environments/environment'; // configurações externas
+import { AuthService } from './shared/services/auth.service';
+//import Auth from "@aws-amplify/auth";
+
+@Component({ //metadata
   selector: 'app-root',
-  template: `
-    <!--The content below is only a placeholder and can be replaced.-->
-    <div style="text-align:center" class="content">
-      <h1>
-        Welcome to {{title}}!
-      </h1>
-      <span style="display: block">{{ title }} app is running!</span>
-      <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-    </div>
-    <h2>Here are some links to help you start: </h2>
-    <ul>
-      <li>
-        <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-      </li>
-      <li>
-        <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-      </li>
-      <li>
-        <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-      </li>
-    </ul>
-    <router-outlet></router-outlet>
-  `,
-  styles: []
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'appAWSomeBlog';
+  title = 'AWSome Builder Blog';
+  userInfo = 'unauthenticated';
+
+  showMenu: boolean = false;
+  public static environmentName = environment.environmentName;;
+  public static environmentUrl = environment.apiUrl;
+
+  links = [
+    //https://www.angularjswiki.com/angular/angular-material-icons-list-mat-icon-list/
+    { path: '/home', icon: 'home', title: 'Home' },
+    { path: '/tests', icon: 'public', title: 'Simple Tests' },
+    //{ path: '/videos', icon: 'video_library', title: 'Videos on S3' },
+    //{ path: '/info', icon: 'person', title: 'Info' }
+  ];
+
+  constructor(public authAWSome: AuthService,
+    private router: Router) { // in order to navigate using code instead of UI/navigation-bar
+
+    this.authAWSome.showMenuEmitter.subscribe(
+      show => {
+        this.showMenu = show;
+
+        if (show) { //this.checkSession();        
+          //console.log("idToken: ", authAWSome.getIdToken());
+          this.authAWSome.getCurrentUserInfo().then(user => {
+            console.log("User: ", user)
+            this.userInfo = user;
+          });
+          
+          //console.log("currentUserInfo: ", Auth.currentUserInfo());
+          /*Auth.currentUserInfo().then((user) => {
+            console.log('user = ', user);
+          });*/
+        }
+        else
+          this.userInfo = "unauthenticated";
+      }      
+    );
+  }
+
+  checkUserInfo() {
+    console.log("*** checkUserInfo ***");
+    this.authAWSome.info();
+  }
+
+  /* ngOnInit(){
+    this.authService.showMenuEmitter.subscribe(
+      show => this.showMenu = show
+    );
+  } */
+
+ /*  async checkSession() {
+    console.log("*** checkSession ***");
+    try {
+      const userInfo = await Auth.currentUserInfo();
+      if (userInfo && userInfo.attributes.profile) {
+        //const avatar = userInfo.attributes.profile;
+        //const url = (await Storage.vault.get(avatar)) as string;
+        //this.avatar = url;
+        console.log("User profile...");
+        console.log(userInfo);
+        this.userInfo = userInfo;
+      }
+    } catch (error) {
+      console.log("no session: ", error);
+    }
+  } */
+
+  public login() {
+    this.router.navigateByUrl("/login");
+  }
 }

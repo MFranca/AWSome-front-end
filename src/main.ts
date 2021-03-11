@@ -4,6 +4,13 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
+// Amplify Configuration
+//https://docs.amplify.aws/lib/auth/getting-started/q/platform/js#create-authentication-service
+import Amplify, { Auth } from 'aws-amplify';
+import awsconfig from './environments/aws-exports';
+Amplify.configure(awsconfig);
+// End Amplify Configuration
+
 if (environment.production) {
   enableProdMode();
 }
