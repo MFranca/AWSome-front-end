@@ -13,15 +13,14 @@ const awsmobile = {
             "openid",
             "profile"
         ],
-        "redirectSignIn": "https://subdomain.cloudfront.net/login",
-        "redirectSignOut": "https://subdomain.cloudfront.net/home",
+        "redirectSignIn": "http://localhost:4200/login",
+        "redirectSignOut": "http://localhost:4200/home",
         "responseType": "token" // token | code (Error: Cannot retrieve a new session. Please authenticate.)
     },
     "federationTarget": "COGNITO_USER_POOLS",
-    "aws_content_delivery_bucket": "awsomebuilder-globo-hostingbucket-dev",
+    "aws_content_delivery_bucket": "awsomeblog-tenant1-hostingbucket-dev",
     "aws_content_delivery_bucket_region": "us-east-2",
     "aws_content_delivery_url": "https://subdomain.cloudfront.net"
 };
-
 
 export default awsmobile;
