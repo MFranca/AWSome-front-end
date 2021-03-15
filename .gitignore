@@ -86,3 +86,7 @@ amplifytools.xcconfig
 .secret-*
 src/environments/aws-exports.js
 src/environments/aws-exports.js
+src/environments/environment.ts
+src/environments/environment.prod.ts
+src/environments/aws-exports.prod.js
+src/environments/aws-exports.js
