@@ -1,9 +1,11 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { environment } from 'src/environments/environment'; // configurações externas
+import { environment } from 'src/environments/environment'; // external setttings
 import { AuthService } from './shared/services/auth.service';
-//import Auth from "@aws-amplify/auth";
 
 @Component({ //metadata
   selector: 'app-root',
@@ -18,12 +20,9 @@ export class AppComponent {
   public static environmentName = environment.environmentName;;
   public static environmentUrl = environment.apiUrl;
 
-  links = [
-    //https://www.angularjswiki.com/angular/angular-material-icons-list-mat-icon-list/
+  links = [    
     { path: '/home', icon: 'home', title: 'Home' },
-    { path: '/tests', icon: 'public', title: 'Simple Tests' },
-    //{ path: '/videos', icon: 'video_library', title: 'Videos on S3' },
-    //{ path: '/info', icon: 'person', title: 'Info' }
+    { path: '/tests', icon: 'public', title: 'Simple Tests' }
   ];
 
   constructor(public authAWSome: AuthService,
@@ -33,17 +32,11 @@ export class AppComponent {
       show => {
         this.showMenu = show;
 
-        if (show) { //this.checkSession();        
-          //console.log("idToken: ", authAWSome.getIdToken());
+        if (show) {           
           this.authAWSome.getCurrentUserInfo().then(user => {
             console.log("User: ", user)
             this.userInfo = user;
           });
-          
-          //console.log("currentUserInfo: ", Auth.currentUserInfo());
-          /*Auth.currentUserInfo().then((user) => {
-            console.log('user = ', user);
-          });*/
         }
         else
           this.userInfo = "unauthenticated";
@@ -55,30 +48,7 @@ export class AppComponent {
     console.log("*** checkUserInfo ***");
     this.authAWSome.info();
   }
-
-  /* ngOnInit(){
-    this.authService.showMenuEmitter.subscribe(
-      show => this.showMenu = show
-    );
-  } */
-
- /*  async checkSession() {
-    console.log("*** checkSession ***");
-    try {
-      const userInfo = await Auth.currentUserInfo();
-      if (userInfo && userInfo.attributes.profile) {
-        //const avatar = userInfo.attributes.profile;
-        //const url = (await Storage.vault.get(avatar)) as string;
-        //this.avatar = url;
-        console.log("User profile...");
-        console.log(userInfo);
-        this.userInfo = userInfo;
-      }
-    } catch (error) {
-      console.log("no session: ", error);
-    }
-  } */
-
+  
   public login() {
     this.router.navigateByUrl("/login");
   }
