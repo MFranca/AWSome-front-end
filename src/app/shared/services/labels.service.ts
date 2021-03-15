@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -9,7 +12,7 @@ const BASE_URL = AppComponent.environmentUrl;
   providedIn: 'root'
 })
 export class LabelsService {
-  private _resource = "labels"; //https://stackoverflow.com/questions/40587873/naming-convention-for-class-properties-in-typescript
+  private _resource = "labels";
 
   constructor(private _http: HttpClient) { }
 
@@ -42,5 +45,4 @@ export class LabelsService {
     
     return this._http.get<any>(this.getUrlById(label), httpOptions);
   }
-
 }

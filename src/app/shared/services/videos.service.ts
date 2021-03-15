@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 import { HttpClient, HttpHeaders, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -31,10 +34,7 @@ export class VideosService {
         'Content-Type': 'application/json'}),
       observe: 'response' as const, // <--- VERY IMPORTANT FRAGMENT (as const)
     };
-
-    /* const httpBody = {
-      "mensagem": "meu conteudo cru entre aspas"
-    }; */
+    
     const httpBody = "just a hardcoded body for testing purposes";
     
     return this._http.put<VideosPutResponse>(url, httpBody, httpOptions); // we need to pass the body (null)
@@ -52,9 +52,6 @@ export class VideosService {
       observe: 'response' as const, // <--- VERY IMPORTANT FRAGMENT (as const)
     };
 
-    /* const httpBody = {
-      "mensagem": "meu conteudo cru entre aspas"
-    }; */
     const httpBody = "just a hardcoded body for testing purposes";
     
     return this._http.put<VideosPutResponse>(url, httpBody, httpOptions); // we need to pass the body (null)
@@ -63,7 +60,7 @@ export class VideosService {
   public putFileS3(fileUploadUrl, contentType, file): Observable<any> { 
     console.log("[putFileS3] url: ", fileUploadUrl);
     console.log("[putFileS3] type: ", contentType);    
-    //this will be used to upload all csv files to AWS S3
+    //this will be used to upload all files to AWS S3
     const headers = new HttpHeaders(
       {
         'Content-Type': contentType        
@@ -80,8 +77,7 @@ export class VideosService {
             //reportProgress: true, //This is required for track upload process
         });
     
-    return this._http.request(req);
-    //return this.http.put<VideosPutResponse>(url, httpBody, httpOptions); // we need to pass the body (null)
+    return this._http.request(req);    
   }
 
   public getVideoUrl (token: string, video: string) : Observable<HttpResponse<any>> {

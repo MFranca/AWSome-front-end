@@ -6,8 +6,7 @@
     </mat-card-header>
 
     <mat-card-content>
-        <!-- onchange no JS vanilla == (change) no Angular, chamado event binding -->
-        <!-- <input type="file" (change)="inputFileChange($event)" /> -->
+        <!-- onchange in JS vanilla == (change) in Angular, called 'event binding' -->        
         <br />
         <button mat-raised-button color="primary" (click)="fileInput.click()">            
             <span>Select File...</span>
@@ -34,8 +33,7 @@
     <mat-card-content>
         <mat-list>
             <pre>HTTP Response (Status): {{httpResponseStatus | json}}</pre>
-            <pre>HTTP Response (Headers): {{httpResponseHeaders | json}}</pre>
-            <!-- <pre>HTTP Response (Body): {{httpResponseBody | json}}</pre> -->
+            <pre>HTTP Response (Headers): {{httpResponseHeaders | json}}</pre>           
         </mat-list>
     </mat-card-content>
 </mat-card>

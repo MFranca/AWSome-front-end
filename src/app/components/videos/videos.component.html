@@ -30,9 +30,7 @@
     </mat-card-header>
 
     <mat-card-content>
-        <mat-list>
-            <!-- <textarea #txtVideos rows=8 cols="180" readonly>{{videosList}}</textarea><br/><br/> -->
-            <!-- <pre>{{videosList|json}}</pre> -->
+        <mat-list>            
             <button mat-raised-button color="primary" (click)="buttonListVideos($event)">List Videos</button>
             <br /><br />
             <mat-selection-list #videolist [multiple]="false" (click)="buttonSelectVideo($event)">

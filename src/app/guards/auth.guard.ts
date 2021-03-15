@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router'; //, UrlTree
 import { Observable } from 'rxjs';
@@ -22,6 +25,5 @@ export class AuthGuard implements CanActivate {
     
       this._router.navigate(['login']);
       return false;
-  }
-  
+  }  
 }

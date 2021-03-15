@@ -1,7 +1,10 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-//import { MatVideoComponent } from 'mat-video/lib/video.component';
+
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -17,26 +20,21 @@ export class VideosComponent implements OnInit {
 
   myControl = new FormControl();
   
-  labels: string[] = [];//['One', 'Two', 'Three'];
+  labels: string[] = [];
   filteredLabels?: Observable<string[]>;  
-  videos: string[] = [];//['Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers'];
+  videos: string[] = [];
   preSignedVideoURL = "<select a video first>";
 
   @ViewChild('videoPlayer') 
   videoPlayer?: ElementRef;
   video?: HTMLVideoElement;    
-  //videoPlayer?: MatVideoComponent;   
-
+  
   constructor(
     private _videosService: VideosService, 
     private _labelsService: LabelsService, 
     private _authService: AuthService) { }
 
-  ngOnInit(): void {
-    /* this.filteredOptions = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value))
-    ); */
+  ngOnInit(): void {  
     this.refresh();
   }
 
@@ -48,12 +46,6 @@ export class VideosComponent implements OnInit {
 
   private refresh(): void {
     this.load();
-
-    /* this.filteredOptions = this.myControl.valueChanges
-    .pipe(         
-      startWith(''),
-      map(value => this._filter(value))
-    ); */
   }
 
   private load(): void {
@@ -64,8 +56,7 @@ export class VideosComponent implements OnInit {
         var accessToken = res.getJwtToken();
 
         this._labelsService.getLabels(accessToken)
-          .subscribe(response => {
-            //https://stackoverflow.com/questions/52113057/angular-material-autocomplete-initialize-filtered-options-to-view-all-options-o
+          .subscribe(response => {            
             this.labels = response.body;            
             this.filteredLabels = this.myControl.valueChanges
               .pipe(         
@@ -155,19 +146,10 @@ export class VideosComponent implements OnInit {
     console.log("*** buttonGetVideo ***"); 
     console.log(this.preSignedVideoURL);        
     this.video = this.videoPlayer?.nativeElement;
-    
-    //https://www.w3schools.com/tags/ref_av_dom.asp
+        
     this.video!.title = "AWSome Builder";
     this.video!.src = this.preSignedVideoURL; //Sets or returns the current source of the audio/video element
     this.video!.volume = 0.2;
-    this.video!.play();
-
-/* 
-    this.videoPlayer!.load();
-    this.videoPlayer!.src = this.preSignedVideoURL;        
-    this.videoPlayer!.autoplay = true; */
-    
-  }
-
- 
+    this.video!.play();    
+  } 
 }

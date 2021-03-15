@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Auth } from 'aws-amplify';
@@ -21,7 +24,6 @@ export class AuthService {
     Auth.currentAuthenticatedUser().then(user => {
       console.log('[info] currentAuthenticatedUser', user);
 
-      // https://stackoverflow.com/questions/48777321/aws-amplify-authentication-how-to-access-tokens-on-successful-auth-signin
       Auth.currentSession().then(res=>{
         let accessToken = res.getAccessToken();
         let idToken = res.getIdToken();
@@ -66,8 +68,7 @@ export class AuthService {
   }
 
   async doAmplifyLogin() {
-    try {      
-      //https://medium.com/@georgemccreadie/introduction-to-using-aws-cognito-hosted-ui-with-amplify-js-4711cf4f925a
+    try {            
       Auth.federatedSignIn(); 
       
     } catch (error) {

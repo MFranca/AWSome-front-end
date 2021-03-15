@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
 import { Component, OnInit } from '@angular/core';
 import { TestsService } from '../../shared/services/tests.service';
 
@@ -20,7 +23,7 @@ export class TestsComponent implements OnInit { // implements OnInit => good-pra
   public test4Headers;
   public test4Body = "LOADING";
 
-  constructor(private testsService: TestsService) { } // PRECISA DO PRIVATE par que seja adicionado como um membro da classe!
+  constructor(private testsService: TestsService) { } // IT NEEDS PRIVATE to be added as a class member!
 
   ngOnInit(): void { // e.g. of life-cycle hook
     // initialization of the component
@@ -36,8 +39,7 @@ export class TestsComponent implements OnInit { // implements OnInit => good-pra
     this.testsService.putAboutFullResponse().subscribe(response => 
       {
         console.log("Retorno do PUT abaixo...");
-        console.log(response);
-        //console.log(response.keys);//UNDEFINED
+        console.log(response);        
 
         this.test4Body = response.body;
         this.test4Headers = response.headers;
@@ -62,8 +64,7 @@ export class TestsComponent implements OnInit { // implements OnInit => good-pra
     // full response
     this.testsService.allWithFullResponse()
     .subscribe(tests => 
-      {           
-        //console.log("Courses: ", courses); // teria que vir depois??? aparentemente, tanto faz.
+      { 
         this.testResponse = tests.body;
 
         console.log(`Resposta: ${tests.status} - ${tests.statusText}`);
