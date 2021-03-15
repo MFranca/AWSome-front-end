@@ -1,6 +1,6 @@
 # Automatic Video Analysis Using Amazon Rekognition Service
 
-This was a prototype used in an internal "onboarding" program - PoC/demo session. And now it is the source code of a blog post.
+This was a part of a prototype used in an internal "onboarding" program (PoC/demo session), and later used as source code for a set of blog posts.
 
 This repo is related to the (Angular 10) User Interface module (SPA Front-End), focused on AWS Amplify service.
 
@@ -9,6 +9,26 @@ Created by Marcelo França.
 Mentoring by Juliano Baeta.
 
 ## Setup
+
+### TL;DR;
+
+```
+git clone
+npm i -g @aws-amplify/cli
+npm install
+amplify init
+amplify add hosting
+amplify import auth
+amplify publish
+```
+
+Then, copy the info from `src\aws.exports.js` to `src\environments\aws-exports.js` and `src\environments\aws-exports.prod.js`.
+
+And edit `src\environments\environment.ts` and `src\environments\environment.prod.ts` changing `apiUrl` accordingly...
+
+Finally, look out for `Hosting endpoint: https://<something>.cloudfront.net` as an output from Amplify CLI...
+
+Or `ng serve -o`!
 
 ### References
 
